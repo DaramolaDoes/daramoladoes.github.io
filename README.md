@@ -1,1 +1,1 @@
-Pioneering innovation through expert AI/ML technogology consulting.
+Driving technology innovation through expert artificial intelligence, machine learning management consulting delivery.
