@@ -1,1 +1,1 @@
-Driving technology innovation through expert artificial intelligence, machine learning management consulting delivery.
+Learn how my work software engineering Machine Learning and Artificial Intelligence models significantly improve people's lives.
