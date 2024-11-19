@@ -1,1 +1,1 @@
-Learn how my work software engineering Machine Learning and Artificial Intelligence models significantly improve people's lives.
+Learn how my work software engineering Machine Learning and Artificial Intelligence tech and models significantly improve people's lives.
