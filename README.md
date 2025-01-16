@@ -1,1 +1,2 @@
-Olu Daramola industries research insishgts, Artifical Intelligence (AI), Machine Learning (ML) models applications solving real world problems, significantly improve people's lives.
+Got goals? My AI/ML models can help.
+Only for those who choose to see how my software engineering work & AI/ML models significantly increases roi.
