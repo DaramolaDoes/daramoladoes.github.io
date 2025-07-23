@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Chrionml© AI City Insights Map (Dark)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #121212;
+      color: #f5f5f5;
+    }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 0;
+    }
+    .mapboxgl-popup {
+      background: #1e1e1e;
+      color: #f5f5f5;
+      font-family: 'Montserrat', sans-serif;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+    .dashboard {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background-color: rgba(30,30,30,0.95);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+      padding: 16px;
+      max-width: 95%;
+      z-index: 1;
+    }
+    .dashboard h2 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #66ccff;
+    }
+    .dashboard ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 6px 12px;
+    }
+    .dashboard li {
+      font-size: 0.85rem;
+      background: #2a2a2a;
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #333;
+    }
+    .dashboard li span {
+      font-weight: 500;
+    }
+    .marker {
+      background-color: #00ffff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+    @media screen and (max-width: 600px) {
+      .dashboard {
+        font-size: 0.8rem;
+        padding: 12px;
+      }
+      .dashboard li {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id='map'></div>
+
+<div class="dashboard">
+  <h2>Chrionml© AI Labs</h2>
+  <p><strong>Deployed Cities:</strong></p>
+  <ul>
+    <li><span>Plymouth, MA</span><span>R²=0.95</span></li>
+    <li><span>Cambridge, MA</span><span>R²=0.89</span></li>
+    <li><span>Ithaca, NY</span><span>R²=0.96</span></li>
+    <li><span>Austin, TX</span><span>R²=0.98</span></li>
+    <li><span>Waltham, MA</span><span>R²=0.94</span></li>
+    <li><span>San Francisco, CA</span><span>R²=0.91</span></li>
+    <li><span>Santa Clara, CA</span><span>R²=0.93</span></li>
+    <li><span>Salem, OR</span><span>R²=0.94</span></li>
+    <li><span>Denver, CO</span><span>R²=0.97</span></li>
+    <li><span>Seattle, WA</span><span>R²=0.95</span></li>
+    <li><span>San Jose, CA</span><span>R²=0.94</span></li>
+  </ul>
+</div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoib2QzIiwiYSI6ImNtZGV1Y2VwODA0OHcyanB0dTQxZm0za2QifQ.mg5X2cNrhMmbju-s5dKxMg';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [-98.5795, 39.8283],
+    zoom: 3.3
+  });
+
+  const cities = [
+    { name: "Plymouth, MA", coords: [-70.6673, 41.9584], r2: 0.95 },
+    { name: "Cambridge, MA", coords: [-71.1097, 42.3736], r2: 0.89 },
+    { name: "Ithaca, NY", coords: [-76.5019, 42.4430], r2: 0.96 },
+    { name: "Austin, TX", coords: [-97.7431, 30.2672], r2: 0.98 },
+    { name: "Waltham, MA", coords: [-71.2358, 42.3765], r2: 0.94 },
+    { name: "San Francisco, CA", coords: [-122.4194, 37.7749], r2: 0.91 },
+    { name: "Santa Clara, CA", coords: [-121.9552, 37.3541], r2: 0.93 },
+    { name: "Salem, OR", coords: [-123.0351, 44.9429], r2: 0.94 },
+    { name: "Denver, CO", coords: [-104.9903, 39.7392], r2: 0.97 },
+    { name: "Seattle, WA", coords: [-122.3321, 47.6062], r2: 0.95 },
+    { name: "San Jose, CA", coords: [-121.8863, 37.3382], r2: 0.94 }
+  ];
+
+  cities.forEach(city => {
+    const el = document.createElement('div');
+    el.className = 'marker';
+
+    new mapboxgl.Marker(el)
+      .setLngLat(city.coords)
+      .setPopup(new mapboxgl.Popup({ offset: 20 })
+        .setHTML(`<strong>${city.name}</strong><br>Forecast Accuracy (R²): <b>${city.r2}</b>`))
+      .addTo(map);
+  });
+</script>
+</body>
+</html>
