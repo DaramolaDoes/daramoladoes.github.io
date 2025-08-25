@@ -7,11 +7,41 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
+    :root{
+      /* Apple-like neutrals + Google primary */
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-ghost: rgba(255,255,255,0.82);
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #1a73e8;           /* Google Blue */
+      --accent-contrast: #ffffff;
+      --zebra: #f9fafb;
+      --shadow: 0 8px 24px rgba(16,24,40,0.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b0c0f;
+        --surface: #121417;
+        --surface-ghost: rgba(18,20,23,0.82);
+        --border: #2a2f36;
+        --text: #eef2f6;
+        --muted: #a6adbb;
+        --accent: #8ab4f8;        /* Google blue (dark) */
+        --accent-contrast: #0b0c0f;
+        --zebra: #151922;
+        --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      }
+    }
+
     html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
 
     #map {
@@ -19,120 +49,153 @@
       top: 0;
       bottom: 0;
       width: 100%;
-      z-index: 0;
     }
 
-    /* Green Circular Button */
+    /* Floating action button (Apple/Material blend) */
     #drawerToggle {
       position: fixed;
       top: 16px;
       right: 16px;
       width: 72px;
       height: 72px;
-      background-color: #28a745;
-      color: white;
+      background: var(--accent);
+      color: var(--accent-contrast);
       border: none;
       border-radius: 50%;
-      font-size: 0.55rem;
-      line-height: 1.1;
+      font-size: 0.62rem;
+      line-height: 1.15;
+      padding: 0 6px;
       text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow);
       z-index: 3;
-      text-transform: uppercase;
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+    }
+    #drawerToggle:hover { transform: translateY(-1px); }
+    #drawerToggle:active { transform: translateY(0); }
+    #drawerToggle:focus-visible{
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
     }
 
-    #drawerToggle:hover {
-      background-color: #218838;
-    }
-
-    /* Drawer Panel Left */
+    /* Slide-in drawer – frosted/tinted surface */
     #drawer {
       position: fixed;
-      top: 0;
-      left: -240px;
-      width: 220px;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 12px;
+      top: 16px;
+      left: 16px;
+      width: 260px;
+      height: calc(100% - 32px);
+      background: var(--surface-ghost);
+      padding: 14px 14px 18px;
       z-index: 2;
-      transition: left 0.3s ease;
-      border-right: 1px solid #ddd;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
       overflow-y: auto;
+      backdrop-filter: saturate(160%) blur(14px);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      transform: translateX(-20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
     }
-
     #drawer.open {
-      left: 0;
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    h2 {
-      font-size: 1rem;
-      margin-top: 0;
+    /* Smaller, centered two-line header */
+    #drawer h2 {
+      font-size: 0.95rem;
+      line-height: 1.25;
+      margin: 2px 0 12px;
       text-align: center;
+      letter-spacing: .2px;
     }
+    .h2-top, .h2-bottom { display: block; white-space: nowrap; }
+    .h2-top   { font-weight: 700; }
+    .h2-bottom{ font-weight: 600; color: var(--muted); }
 
     table {
       width: 100%;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
     }
-
-    th, td {
-      padding: 6px 4px;
+    thead th {
+      padding: 10px 8px;
       text-align: left;
-      border-bottom: 1px solid #ccc;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0));
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
     }
+    tbody td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr:nth-child(even) td { background: var(--zebra); }
+    tbody tr:last-child td { border-bottom: none; }
 
+    /* Map markers - accent dot with subtle ring */
     .marker {
-      background-color: #007acc;
-      border-radius: 50%;
       width: 16px;
       height: 16px;
-      box-shadow: 0 0 10px rgba(0,122,204,0.8);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow:
+        0 0 0 3px #ffffff,
+        0 6px 12px rgba(0,0,0,0.15);
+    }
+    @media (prefers-color-scheme: dark){
+      .marker { box-shadow: 0 0 0 3px #0b0c0f, 0 6px 12px rgba(0,0,0,0.6); }
     }
 
     .mapboxgl-popup-content {
       font-size: 0.85rem;
+      border-radius: 12px !important;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      background: var(--surface);
     }
   </style>
 </head>
 <body>
 
-<!-- MAP -->
+<!-- Map -->
 <div id="map"></div>
 
-<!-- CIRCULAR GREEN BUTTON -->
+<!-- Floating Button -->
 <button id="drawerToggle" onclick="toggleDrawer()">Chrionml©<br>AI Labs</button>
 
-<!-- SLIDE-IN TABLE DRAWER -->
-<div id="drawer">
-  <h2>Models Accuracy</h2>
+<!-- Drawer -->
+<div id="drawer" class="open">
+  <h2>
+    <span class="h2-top">Single-Family</span>
+    <span class="h2-bottom">Aug-30-2025 Outlook</span>
+  </h2>
   <table>
-    <tr><th>City</th><th>R²</th></tr>
-    <tr><td>Austin, TX</td><td>0.97</td></tr>
-    <tr><td>Cambridge, MA</td><td>0.89</td></tr>
-    <tr><td>Denver, CO</td><td>0.89</td></tr>
-    <tr><td>Ithaca, NY</td><td>0.89</td></tr>
-    <tr><td>Plymouth, MA</td><td>0.92</td></tr>
-    <tr><td>Salem, OR</td><td>0.94</td></tr>
-    <tr><td>San Francisco, CA</td><td>0.82</td></tr>
-    <tr><td>San Jose, CA</td><td>0.88</td></tr>
-    <tr><td>Santa Clara, CA</td><td>0.90</td></tr>
-    <tr><td>Seattle, WA</td><td>0.97</td></tr>
-    <tr><td>Waltham, MA</td><td>0.91</td></tr>
+    <thead>
+      <tr><th>City</th><th>Price</th></tr>
+    </thead>
+    <tbody id="cityTableBody"></tbody>
   </table>
 </div>
 
+<!-- JS -->
 <script>
   mapboxgl.accessToken = 'pk.eyJ1Ijoib2QzIiwiYSI6ImNtZGV3a3FhMTA2dXkyanE1eHpiMGFzaHcifQ.SFRhIljjn0_VnQ6SoKnYIw';
 
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    style: 'mapbox://styles/mapbox/light-v12', // cleaner, system-like base
     center: [-98.5795, 39.8283],
     zoom: 3,
     pitch: 45,
@@ -140,34 +203,48 @@
     antialias: true
   });
 
-  // Enable globe and interactivity
-  map.on('load', () => {
-    map.setFog({}); // Default globe fog
+  map.scrollZoom.enable();
+  map.dragRotate.enable();
+  map.touchZoomRotate.enable();
+  map.keyboard.enable();
+
+  map.on('style.load', () => {
+    map.setFog({});
+    // Terrain optional for minimalist feel; keep off for super-flat look
   });
 
+  // Price data
   const cities = [
-    { name: "Plymouth, MA", coords: [-70.6673, 41.9584], r2: 0.95 },
-    { name: "Cambridge, MA", coords: [-71.1097, 42.3736], r2: 0.89 },
-    { name: "Ithaca, NY", coords: [-76.5019, 42.4430], r2: 0.96 },
-    { name: "Austin, TX", coords: [-97.7431, 30.2672], r2: 0.98 },
-    { name: "Waltham, MA", coords: [-71.2358, 42.3765], r2: 0.94 },
-    { name: "San Francisco, CA", coords: [-122.4194, 37.7749], r2: 0.91 },
-    { name: "Santa Clara, CA", coords: [-121.9552, 37.3541], r2: 0.93 },
-    { name: "Salem, OR", coords: [-123.0351, 44.9429], r2: 0.94 },
-    { name: "Denver, CO", coords: [-104.9903, 39.7392], r2: 0.97 },
-    { name: "Seattle, WA", coords: [-122.3321, 47.6062], r2: 0.95 },
-    { name: "San Jose, CA", coords: [-121.8863, 37.3382], r2: 0.94 }
+    { name: "Austin, TX", coords: [-97.7431, 30.2672], price: 512413 },
+    { name: "Cambridge, MA", coords: [-71.1097, 42.3736], price: 1670813 },
+    { name: "Denver, CO", coords: [-104.9903, 39.7392], price: 577921 },
+    { name: "Plymouth, MA", coords: [-70.6673, 41.9584], price: 661533 },
+    { name: "Ithaca, NY", coords: [-76.5019, 42.4430], price: 427244 },
+    { name: "Salem, OR", coords: [-123.0351, 44.9429], price: 369470 },
+    { name: "San Francisco, CA", coords: [-122.4194, 37.7749], price: 899057 },
+    { name: "San Jose, CA", coords: [-121.8863, 37.3382], price: 1061257 },
+    { name: "Santa Clara, CA", coords: [-121.9552, 37.3541], price: 1786961 },
+    { name: "Seattle, WA", coords: [-122.3321, 47.6062], price: 956662 },
+    { name: "Waltham, MA", coords: [-71.2358, 42.3765], price: 863003 }
   ];
 
+  // Markers
   cities.forEach(city => {
     const el = document.createElement('div');
     el.className = 'marker';
     new mapboxgl.Marker(el)
       .setLngLat(city.coords)
-      .setPopup(new mapboxgl.Popup({ offset: 25 })
-      .setHTML(`<strong>${city.name}</strong><br>Forecast Accuracy (R²): ${city.r2}`))
+      .setPopup(
+        new mapboxgl.Popup({ offset: 16 })
+          .setHTML(`<strong>${city.name}</strong><br>Price: $${city.price.toLocaleString()}`)
+      )
       .addTo(map);
   });
+
+  // Sort by price and render table
+  const sorted = [...cities].sort((a,b) => a.price - b.price);
+  const tbody = document.getElementById('cityTableBody');
+  tbody.innerHTML = sorted.map(c => `<tr><td>${c.name}</td><td>$${c.price.toLocaleString()}</td></tr>`).join('');
 
   function toggleDrawer() {
     document.getElementById('drawer').classList.toggle('open');
@@ -175,4 +252,3 @@
 </script>
 </body>
 </html>
-
