@@ -1,9 +1,23 @@
 name = "oms-olu-rag"
 main = "src/worker.ts"
 compatibility_date = "2024-12-01"
+account_id = "1014ecb434228bed6721e5dc12e94dc6"
+workers_dev = true
+
+[[vectorize]]
+binding = "VECTORS"
+index_name = "oms-ir"
 
 [vars]
 OPENAI_EMBED_MODEL = "text-embedding-3-small"
 OPENAI_CHAT_MODEL  = "gpt-4o-mini"
 TOP_K = "8"
 MAX_CONTEXT_CHARS = "8000"
+
+# (routes are fine to keep; they’ll attach only if your token has Zone→Workers:Edit)
+routes = [
+  { pattern = "omobilesolutions.com/api/olu*",     zone_name = "omobilesolutions.com" },
+  { pattern = "www.omobilesolutions.com/api/olu*", zone_name = "omobilesolutions.com" }
+]
+
+
