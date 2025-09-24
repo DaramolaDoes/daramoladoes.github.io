@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Chrionml© Predictive AI Engine — Applied AI by Olu Daramola</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <meta name="description" content="Chrionml© Predictive AI Engine by Olu Daramola — MIT-trained data scientist. Forecasts, ROI, and interactive maps for real estate and beyond." />
+  <meta name="description" content="Chrionml© Predictive AI Engine by Olu Daramola — MIT-trained data scientist. Forecasts, ROI, and interactive maps for real estate and enterprise monetization." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
@@ -17,6 +17,8 @@
       --muted:#6b7280; 
       --rule:#e5e7eb;
       --blue:#1a73e8; 
+      --violet:#7c3aed;
+      --ok:#16a34a; --warn:#f59e0b; --bad:#dc2626;
       --shadow:0 18px 40px rgba(16,24,40,.12);
       --radius:18px;
       --max:1120px;
@@ -29,45 +31,28 @@
       position:sticky;top:0;z-index:50;background:rgba(245,245,247,.7);backdrop-filter:saturate(180%) blur(12px);
       border-bottom:1px solid var(--rule);
     }
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;
-    }
-    .brand{
-      font-weight:800;letter-spacing:.2px;font-size:18px;
-    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;}
+    .brand{font-weight:800;letter-spacing:.2px;font-size:18px;}
     .brand small{font-weight:600;color:var(--muted)}
     .links{display:flex;gap:18px;align-items:center}
     .links a{font-weight:600;color:#0f172a;opacity:.9}
-    .cta{
-      display:inline-block;background:var(--ink);color:#fff;font-weight:700;padding:10px 16px;border-radius:14px;
-    }
+    .cta{display:inline-block;background:var(--ink);color:#fff;font-weight:700;padding:10px 16px;border-radius:14px;}
     /* Hero */
-    .hero{
-      display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:40px 0 10px;
-    }
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:40px 0 10px;}
     .hero .kicker{font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
     .hero h1{font-size:48px;line-height:1.08;margin:10px 0 12px;font-weight:800;letter-spacing:-.02em}
     .hero p{color:#374151;font-size:18px;line-height:1.6;margin:0 0 20px;max-width:56ch}
     .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 24px}
     .pill{padding:8px 12px;border:1px solid var(--rule);border-radius:999px;font-weight:600;font-size:12px;color:#334155;background:#fff}
-    .heroCard{
-      background:linear-gradient(180deg,#fff, #fafafa);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;
-    }
+    .heroCard{background:linear-gradient(180deg,#fff, #fafafa);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .stat{
-      background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px
-    }
+    .stat{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px}
     .stat strong{display:block;font-size:22px;letter-spacing:-.015em}
     .stat span{color:var(--muted);font-size:12px}
-    /* Map section */
+    /* Blocks */
     .block{margin:34px 0 18px}
-    .card{
-      background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .card .head{
-      display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--rule);background:#fff;
-    }
+    .card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+    .card .head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--rule);background:#fff;}
     .card h3{margin:0;font-size:18px;letter-spacing:.2px}
     .frame{width:100%;aspect-ratio:16/9;border:0;display:block}
     /* Editorial row */
@@ -80,10 +65,18 @@
     .btnRow{display:flex;gap:10px;flex-wrap:wrap}
     .button{display:inline-block;border:1px solid var(--rule);padding:10px 14px;border-radius:12px;font-weight:700}
     .button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    /* OMS RAG section */
+    .mini{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+    .kpi3 .k{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .badge{border:1px solid var(--rule);border-radius:999px;padding:6px 10px;font-weight:700}
+    .usegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .use{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:12px}
+    .use h4{margin:0 0 6px;font-size:14px}
+    pre.code{background:#0d1117;color:#e6edf3;border-radius:12px;border:1px solid #30363d;padding:12px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
     /* Footer */
-    footer{
-      margin-top:36px;padding:28px 0;border-top:1px solid var(--rule);color:#475569
-    }
+    footer{margin-top:36px;padding:28px 0;border-top:1px solid var(--rule);color:#475569}
     .contact{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .contact h5{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#6b7280}
     .legal{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--rule);margin-top:18px;padding-top:12px;font-size:13px}
@@ -91,6 +84,8 @@
       .hero{grid-template-columns:1fr;gap:12px}
       .grid{grid-template-columns:1fr}
       .contact{grid-template-columns:1fr 1fr}
+      .usegrid{grid-template-columns:1fr 1fr}
+      .kpi3{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -101,6 +96,7 @@
       <nav class="links">
         <a href="index.html">Overview</a>
         <a href="dark-theme-map.html">Maps</a>
+        <a href="oms-wiki.html">OMS Wiki</a>
         <a href="README.md">Docs</a>
         <a class="cta" href="https://www.omobilesolutions.com/unlock-ai-solutions">Request Strategy Session</a>
       </nav>
@@ -152,6 +148,78 @@
           <a class="button" href="dark-theme-map.html">Open in full page</a>
         </div>
         <iframe class="frame" src="/chrionml-83125-outlook-map.html" title="Chrionml AI Real Estate Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- NEW: OMS Consulting · RAG / LLM Use-Cases -->
+    <section class="block">
+      <div class="card" style="padding:18px 18px 8px;">
+        <div class="head" style="border-bottom:0;background:transparent;padding:0 0 8px 0;">
+          <div>
+            <div class="mini" style="color:var(--blue)">OMS Consulting Group</div>
+            <h3 style="margin-top:6px">LLM/RAG for Enterprise: Monetization & Knowledge Ops</h3>
+            <div class="badges">
+              <span class="badge">Retrieval with traceable citations</span>
+              <span class="badge">Guardrails & evals (faithfulness, leakage)</span>
+              <span class="badge">Deployed on Cloudflare Workers + Vectorize</span>
+            </div>
+            <div class="kpi3">
+              <div class="k"><div class="mini">Answer faithfulness</div><div><strong>≥ 0.90</strong> (eval set)</div></div>
+              <div class="k"><div class="mini">Retrieval recall@8</div><div><strong>≥ 0.85</strong> (IR docs)</div></div>
+              <div class="k"><div class="mini">Latency p95</div><div><strong>&lt; 1.2s</strong> (Workers)</div></div>
+            </div>
+          </div>
+          <div class="btnRow" style="align-self:flex-start;">
+            <a class="button" href="oms-wiki.html">Explore the OMS Wiki</a>
+            <a class="button primary" href="https://oms-olu-rag.odaramola03.workers.dev/health">API Health</a>
+          </div>
+        </div>
+
+        <div class="usegrid">
+          <div class="use">
+            <h4>Tripadvisor · Monetization Portfolio</h4>
+            <p class="copy">RAG on IR to answer revenue mix & strategy; portfolio rails across Ads/Sponsored/Marketplace with incrementality.</p>
+            <a class="button" href="https://www.omobilesolutions.com/post/tripadvisor-2024-monetization-for-ai-and-engineering">Case</a>
+          </div>
+          <div class="use">
+            <h4>Biogen · MLR-Safe QA</h4>
+            <p class="copy">PII/PHI controls, immutable audit, retrieval constraints; label & safety answers with citations.</p>
+            <a class="button" href="oms-wiki.html#head-ai">Design</a>
+          </div>
+          <div class="use">
+            <h4>Novo Nordisk · Field Ops</h4>
+            <p class="copy">Territory micro-segmentation, privacy-preserving notes; measure calls/day × win-rate uplift.</p>
+            <a class="button" href="oms-wiki.html#cpo">Playbook</a>
+          </div>
+          <div class="use">
+            <h4>Vertex · Safety Rails</h4>
+            <p class="copy">Policy enforcement, hallucination watchdogs, rollback in minutes; high-stakes oversight.</p>
+            <a class="button" href="oms-wiki.html#track-monitoring">Safety</a>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="grid">
+          <div class="card" style="padding:14px">
+            <div class="eyebrow">API · Quick test (curl)</div>
+            <pre class="code" style="margin:8px 0 0">
+curl -s -X POST "https://omobilesolutions.com/api/olu/search" \
+  -H "Content-Type: application/json" \
+  -d '{"q":"What was Viator revenue in 2024? cite source"}'</pre>
+            <div class="mini" style="margin-top:6px">Returns: <strong>{"answer","sources":[...]}</strong> with traceable URLs</div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div class="eyebrow">Why it works</div>
+            <ul class="copy" style="margin:6px 0 0 18px">
+              <li>Clean doc contracts → chunking → embeddings (1536-d)</li>
+              <li>Semantic rank + context packing with source attributions</li>
+              <li>Evals that map to risk: recall@K, faithfulness, citation accuracy</li>
+            </ul>
+            <div class="btnRow" style="margin-top:10px">
+              <a class="button" href="oms-wiki.html#sql-prompts">SQL & Prompts</a>
+              <a class="button primary" href="https://www.omobilesolutions.com/unlock-ai-solutions">Book 30-min review</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -222,16 +290,3 @@
   </footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
