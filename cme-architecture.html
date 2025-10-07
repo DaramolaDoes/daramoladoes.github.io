@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>CME Group — GCP Architecture (MIT-Labs Tone)</title>
+  <meta name="description" content="Focused architecture page: governed ingestion, layered BigQuery, Python ETL, Composer orchestration, Terraform IaC."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#0f172a; --ink:#e5e7eb; --muted:#94a3b8; --rule:#1e293b;
+      --accent:#60a5fa; --code:#0b1324; --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;background:#0b1220;color:var(--ink);line-height:1.6}
+    .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px 80px}
+    h1{font-size:30px;margin:4px 0 8px}
+    .sub{color:var(--muted);margin:0 0 10px}
+    .tag{display:inline-block;border:1px solid var(--rule);border-radius:999px;padding:4px 10px;font-size:12px;color:#bcd4ff;margin-right:8px;background:#0c162a}
+    section{border-top:1px solid var(--rule);padding-top:22px;margin-top:22px}
+    .grid{display:grid;gap:16px}
+    @media(min-width:900px){ .cols-2{grid-template-columns:1fr 1fr} }
+    .card{background:rgba(255,255,255,.03);border:1px solid var(--rule);border-radius:14px;padding:14px}
+    pre{background:var(--code);color:#cbd5e1;padding:12px;border-radius:10px;border:1px solid #0f213f;overflow:auto}
+    a{color:var(--accent)}
+    .diagram{background:#0a1324;border:1px solid #0b1b36;border-radius:14px;padding:12px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div>
+      <span class="tag">GCP-Native</span>
+      <span class="tag">BigQuery</span>
+      <span class="tag">Python ETL</span>
+      <span class="tag">Cloud Composer</span>
+    </div>
+    <h1>CME Group — GCP Architecture Overview</h1>
+    <p class="sub">Public CMEGroup.com pages → governed ingestion → layered BigQuery → marts. MIT-Labs tone, production-minded.</p>
+
+    <section id="diagram">
+      <h2>1) System Diagram</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 1040 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CME GCP architecture">
+          <rect x="10" y="10" width="1020" height="280" rx="16" fill="#0b1b36" stroke="#12284a"/>
+          <rect x="30" y="60" width="160" height="70" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="110" y="100" fill="#9cc4ff" text-anchor="middle" font-size="13">CMEGroup.com</text>
+          <rect x="220" y="50" width="170" height="90" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="305" y="85" fill="#9cc4ff" text-anchor="middle" font-size="13">GCS (raw_html / json)</text>
+          <rect x="220" y="170" width="170" height="60" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="305" y="205" fill="#9cc4ff" text-anchor="middle" font-size="13">Pub/Sub</text>
+          <rect x="410" y="50" width="170" height="90" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="495" y="85" fill="#9cc4ff" text-anchor="middle" font-size="13">Dataflow / Beam</text>
+          <rect x="600" y="40" width="150" height="60" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="675" y="70" fill="#9cc4ff" text-anchor="middle" font-size="13">BQ Bronze</text>
+          <rect x="600" y="115" width="150" height="60" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="675" y="145" fill="#9cc4ff" text-anchor="middle" font-size="13">BQ Silver</text>
+          <rect x="600" y="190" width="150" height="60" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="675" y="220" fill="#9cc4ff" text-anchor="middle" font-size="13">BQ Gold</text>
+          <rect x="780" y="110" width="180" height="80" rx="10" fill="#192a46" stroke="#274064"/>
+          <text x="870" y="150" fill="#a7c7ff" text-anchor="middle" font-size="13">Cloud Composer</text>
+          <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#9cc4ff"/></marker></defs>
+          <line x1="190" y1="95" x2="220" y2="95" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="390" y1="95" x2="410" y2="95" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="580" y1="75" x2="600" y2="70" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="580" y1="120" x2="600" y2="145" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="580" y1="165" x2="600" y2="220" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="750" y1="70"  x2="780" y2="150" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="750" y1="145" x2="780" y2="150" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="750" y1="220" x2="780" y2="150" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arr)"/>
+        </svg>
+      </div>
+    </section>
+
+    <section id="data-model">
+      <h2>2) Layered Data Model</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Bronze</h3>
+          <ul>
+            <li>Normalized JSON + lineage (<code>source_url</code>, <code>crawl_ts</code>, <code>hash_key</code>).</li>
+            <li>Partition by <code>DATE(crawl_ts)</code>; cluster by <code>instrument_code</code>, <code>content_type</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Silver</h3>
+          <ul>
+            <li>Entities: <code>products</code>, <code>contract_specs</code>, <code>calendar_events</code>, <code>education_articles</code>.</li>
+            <li>Typed columns; dedupe by <code>hash_key</code>; business keys: <code>instrument_code</code>, <code>as_of_date</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Gold</h3>
+          <ul>
+            <li>Analytics views & materialized views; freshness indicators.</li>
+            <li>Optional row-level security per audience.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>DDL Sketch</h3>
+<pre>CREATE TABLE IF NOT EXISTS `proj.ds_bronze.cme_pages`
+PARTITION BY DATE(crawl_ts)
+CLUSTER BY instrument_code, content_type AS
+SELECT NULL AS instrument_code, NULL AS content_type, NULL AS source_url,
+       NULL AS crawl_ts, NULL AS hash_key, NULL AS payload_json;</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="etl">
+      <h2>3) ETL & Incremental Merge</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Extractor</h3>
+<pre>HEADERS = {"User-Agent": "ResearchBot/1.0 (+contact@example.com)"}
+def make_record(url, html):
+    payload = parse(html)
+    h = sha256((url + html)[:1_000_000].encode()).hexdigest()
+    return {"source_url": url, "crawl_ts": NOW(), "hash_key": h, "payload_json": payload}</pre>
+        </div>
+        <div class="card">
+          <h3>Merge</h3>
+<pre>MERGE `proj.ds_silver.contract_specs` T
+USING `proj.ds_bronze.cme_pages` S
+ON T.hash_key = S.hash_key
+WHEN NOT MATCHED AND S.content_type = 'contract_specs' THEN
+  INSERT (instrument_code, as_of_ts, tick_size, contract_unit, hash_key)
+  VALUES (JSON_VALUE(S.payload_json,'$.instrument_code'), S.crawl_ts,
+          JSON_VALUE(S.payload_json,'$.attributes.tick_size'),
+          JSON_VALUE(S.payload_json,'$.attributes.contract_unit'), S.hash_key);</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="ops">
+      <h2>4) Operations: Governance, Orchestration, IaC</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Validation & Lineage</h3>
+<pre>expect_column_values_to_not_be_null(["source_url","hash_key","crawl_ts"])
+expect_column_values_to_match_regex("instrument_code", "^[A-Z0-9-_]{1,20}$")</pre>
+          <ul>
+            <li><code>_LINEAGE</code> tables: <code>source_url</code>, <code>crawl_ts</code>, code_version.</li>
+            <li>Labels on datasets: <code>layer</code>, <code>owner</code>, <code>domain</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Composer & Terraform</h3>
+<pre>with DAG("cme_public_pipeline", schedule="@hourly", catchup=False): ...
+resource "google_bigquery_dataset" "bronze" { dataset_id="ds_bronze"; location="US" }</pre>
+          <ul>
+            <li>Freshness SLA ≤ 2h; exponential retries.</li>
+            <li>Slack alerts on failure; escalate on repeated SLA breach.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <h2>5) Notes & Attribution</h2>
+      <div class="card">
+        <p>This page illustrates a conceptual design using public <a href="https://www.cmegroup.com/" target="_blank" rel="noopener">CMEGroup.com</a> pages. Review Terms of Use and <code>robots.txt</code>. Do not store or redistribute proprietary market data. Educational demo only.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
