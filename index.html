@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Chrionml© AI — Applied AI Systems by Olu Daramola</title>
+  <title>Chrionml© AI — Systems Portfolio by Olu Daramola</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <meta name="description" content="Stanford AI Lab–style portfolio: RAG LLMOps demos and GCP-native BigQuery data marts by Olu Daramola." />
+  <meta name="description" content="Stanford AI Lab–style portfolio: RAG LLMOps demos for travel search and GCP-native BigQuery data marts. Built and curated by Olu Daramola." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
@@ -32,6 +32,8 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter, Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji";}
     a{color:var(--ink);text-decoration:none}
     .container{max-width:var(--max);margin:0 auto;padding:20px}
+
+    /* Header */
     header.site{
       position:sticky;top:0;z-index:50;background:rgba(245,245,247,.78);backdrop-filter:saturate(180%) blur(12px);
       border-bottom:1px solid var(--rule);
@@ -47,7 +49,7 @@
 
     /* Hero */
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:44px 0 10px;}
-    .hero .kicker{font-weight:800;color:var(--brand-blue);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+    .kicker{font-weight:800;color:var(--brand-blue);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
     .hero h1{font-size:46px;line-height:1.08;margin:10px 0 10px;font-weight:800;letter-spacing:-.01em}
     .hero p{color:#374151;font-size:18px;line-height:1.6;margin:0 0 18px;max-width:62ch}
     .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 24px}
@@ -90,20 +92,22 @@
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;gap:12px}
       .usecases{grid-template-columns:1fr}
-      .contact{grid-template-columns:1fr 1fr}
+      .contact{grid-template-columns:1fr 1r}
     }
 
-    /* Remove any stray black placeholders on embeds */
+    /* Prevent black square behind embeds */
     .frame { background:#fff; }
   </style>
 </head>
 <body>
   <header class="site">
     <div class="container nav">
-      <div class="brand">Chrionml© <small>AI</small></div><!-- updated tag -->
+      <div class="brand">Chrionml© <small>AI</small></div>
       <nav class="links">
         <a href="index.html">Overview</a>
         <a href="#use-cases">Use Cases</a>
+        <a href="cme-bigquery-datamart.html">CME Wiki</a>
+        <a href="cme-architecture.html">CME Architecture</a>
         <a href="README.md">Docs</a>
         <a href="https://www.omobilesolutions.com/ai-ml-innovation-track">AI/ML Innovation Track</a>
         <a class="cta" href="https://www.omobilesolutions.com/unlock-ai-solutions">Request Strategy Session</a>
@@ -139,7 +143,7 @@
           <div class="stat"><strong>BigQuery</strong><span>Bronze→Gold modeling</span></div>
           <div class="stat"><strong>ETL</strong><span>Batch + Incremental</span></div>
         </div>
-        <p style="margin:12px 2px 0;color:#64748b;font-size:12px">Prototypes shown here are educational demos; integrate with enterprise data under your governance.</p>
+        <p style="margin:12px 2px 0;color:#64748b;font-size:12px">Educational demos only. Integrate with enterprise data under your governance.</p>
       </aside>
     </section>
 
@@ -152,7 +156,7 @@
             <h3 style="margin-top:4px">Use Cases</h3>
           </div>
           <div class="pillrow" style="margin:0">
-            <a class="button primary" href="https://github.com/DaramolaDoes/daramoladoes.github.io">Open Repository</a>
+            <a class="button primary" href="https://github.com/DaramolaDoes/daramoladoes.github.io" target="_blank" rel="noopener">Open Repository</a>
           </div>
         </div>
 
@@ -167,7 +171,7 @@
             <p>Retriever-augmented generation for travel planning: ingestion → vector index → semantic search + re-rank → grounded answers with citations and guardrails.</p>
             <div class="pillrow">
               <a class="button primary" href="https://www.youtube.com/watch?v=WMnjLXNHDr4" target="_blank" rel="noopener">Watch 3-min Demo</a>
-              <a class="button" href="use-cases/tripadvisor-rag.html">Architecture</a>
+              <a class="button" href="olu-demo.html">Local demo page</a>
             </div>
           </article>
 
@@ -181,7 +185,7 @@
             <p>Ultra-short walkthrough showing retrieval, re-ranking, and answer generation loop with telemetry for rapid iteration.</p>
             <div class="pillrow">
               <a class="button primary" href="https://www.youtube.com/watch?v=KJELPowxJq4" target="_blank" rel="noopener">Watch 17-sec Demo</a>
-              <a class="button" href="use-cases/tripadvisor-rag.html#tech">Tech details</a>
+              <a class="button" href="olu-demo.html#tech">Tech details</a>
             </div>
           </article>
 
@@ -194,15 +198,13 @@
             <h4>GCP-Native BigQuery Data Mart — CME Group (Public Data)</h4>
             <p>Governed ingestion, Bronze→Silver→Gold modeling, Python ETL (batch + incremental), validation contracts, schema evolution, Composer orchestration, Terraform IaC.</p>
             <div class="pillrow">
-              <a class="button primary" href="cme-bigquery-datamart.html">Open Use Case</a>
-              <a class="button" href="cme-bigquery-datamart.html#architecture">See architecture</a>
+              <a class="button primary" href="cme-bigquery-datamart.html">Open CME Wiki</a>
+              <a class="button" href="cme-architecture.html">See Architecture</a>
             </div>
           </article>
         </div>
       </div>
     </section>
-
-    <!-- (REMOVED) case study & scenario analysis cards per request -->
 
     <!-- Chrionml© AI Map — moved to bottom -->
     <section id="map" class="block">
@@ -211,7 +213,8 @@
           <h3>Chrionml© AI — Interactive Map</h3>
           <a class="button" href="dark-theme-map.html">Open in full page</a>
         </div>
-        <iframe class="frame" src="/chrionml-83125-outlook-map.html" title="Chrionml© AI Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <!-- Use relative path for GitHub Pages -->
+        <iframe class="frame" src="chrionml-83125-outlook-map.html" title="Chrionml© AI Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </section>
   </main>
@@ -234,10 +237,10 @@
         <div>
           <h5>Social</h5>
           <div class="links" style="gap:10px;">
-            <a href="https://www.youtube.com/@airealtyinsider/featured">YouTube</a>
-            <a href="https://www.linkedin.com/in/oludaramola/">LinkedIn</a>
-            <a href="https://www.instagram.com/daramoladoes/">Instagram</a>
-            <a href="https://www.github.com/DaramolaDoes/">GitHub</a>
+            <a href="https://www.youtube.com/@airealtyinsider/featured" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.linkedin.com/in/oludaramola/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://www.instagram.com/daramoladoes/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.github.com/DaramolaDoes/" target="_blank" rel="noopener">GitHub</a>
           </div>
         </div>
       </div>
