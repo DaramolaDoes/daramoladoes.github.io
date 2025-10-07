@@ -2,107 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Chrionml© Predictive AI Engine — Applied AI by Olu Daramola</title>
+  <title>Chrionml© AI — Applied AI Systems by Olu Daramola</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <meta name="description" content="Chrionml© Predictive AI Engine by Olu Daramola — MIT-trained data scientist. Forecasts, ROI, and interactive maps for real estate and beyond." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="Stanford AI Lab–style portfolio: RAG LLMOps demos and GCP-native BigQuery data marts by Olu Daramola." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
     :root{
-      /* Apple-like neutrals + subtle brand accent */
-      --bg:#f5f5f7; 
-      --surface:#ffffff; 
-      --ghost:rgba(255,255,255,0.85);
-      --ink:#111827; 
-      --muted:#6b7280; 
+      /* Brand palette */
+      --brand-blue:#1a73e8;   /* Google-like blue */
+      --brand-blue-100:#e8f1fe;
+      --brand-blue-700:#1558b3;
+      --accent-red:#cc0000;   /* ESPN red */
+      --accent-red-100:#fde8e8;
+
+      /* Neutrals */
+      --bg:#f5f5f7;
+      --surface:#ffffff;
+      --ghost:rgba(255,255,255,0.92);
+      --ink:#101828;
+      --muted:#667085;
       --rule:#e5e7eb;
-      --blue:#1a73e8; 
+
       --shadow:0 18px 40px rgba(16,24,40,.12);
       --radius:18px;
       --max:1120px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter, Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter, Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,"Apple Color Emoji","Segoe UI Emoji";}
     a{color:var(--ink);text-decoration:none}
     .container{max-width:var(--max);margin:0 auto;padding:20px}
     header.site{
-      position:sticky;top:0;z-index:50;background:rgba(245,245,247,.7);backdrop-filter:saturate(180%) blur(12px);
+      position:sticky;top:0;z-index:50;background:rgba(245,245,247,.78);backdrop-filter:saturate(180%) blur(12px);
       border-bottom:1px solid var(--rule);
     }
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;
-    }
-    .brand{
-      font-weight:800;letter-spacing:.2px;font-size:18px;
-    }
-    .brand small{font-weight:600;color:var(--muted)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;}
+    .brand{font-weight:800;letter-spacing:.2px;font-size:18px}
+    .brand small{font-weight:700;color:var(--muted)}
     .links{display:flex;gap:18px;align-items:center}
-    .links a{font-weight:600;color:#0f172a;opacity:.9}
-    .cta{
-      display:inline-block;background:var(--ink);color:#fff;font-weight:700;padding:10px 16px;border-radius:14px;
-    }
+    .links a{font-weight:700;color:#0f172a;opacity:.95}
+    .links a:hover{color:var(--brand-blue)}
+    .cta{display:inline-block;background:var(--ink);color:#fff;font-weight:800;padding:10px 16px;border-radius:14px;}
+    .cta:hover{background:#0d1320}
+
     /* Hero */
-    .hero{
-      display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:40px 0 10px;
-    }
-    .hero .kicker{font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
-    .hero h1{font-size:48px;line-height:1.08;margin:10px 0 12px;font-weight:800;letter-spacing:-.02em}
-    .hero p{color:#374151;font-size:18px;line-height:1.6;margin:0 0 20px;max-width:56ch}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:44px 0 10px;}
+    .hero .kicker{font-weight:800;color:var(--brand-blue);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+    .hero h1{font-size:46px;line-height:1.08;margin:10px 0 10px;font-weight:800;letter-spacing:-.01em}
+    .hero p{color:#374151;font-size:18px;line-height:1.6;margin:0 0 18px;max-width:62ch}
     .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 24px}
-    .pill{padding:8px 12px;border:1px solid var(--rule);border-radius:999px;font-weight:600;font-size:12px;color:#334155;background:#fff}
-    .heroCard{
-      background:linear-gradient(180deg,#fff, #fafafa);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;
-    }
+    .pill{padding:8px 12px;border:1px solid var(--rule);border-radius:999px;font-weight:800;font-size:12px;color:#334155;background:#fff}
+    .heroCard{background:linear-gradient(180deg,#fff,#fafafa);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .stat{
-      background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px
-    }
+    .stat{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px}
     .stat strong{display:block;font-size:22px;letter-spacing:-.015em}
     .stat span{color:var(--muted);font-size:12px}
-    /* Map section */
+
+    /* Sections */
     .block{margin:34px 0 18px}
-    .card{
-      background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .card .head{
-      display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--rule);background:#fff;
-    }
+    .card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card .head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--rule);background:#fff}
     .card h3{margin:0;font-size:18px;letter-spacing:.2px}
     .frame{width:100%;aspect-ratio:16/9;border:0;display:block}
-    /* Editorial row */
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-    .videoWrap{position:relative;width:100%;padding-bottom:56.25%;background:#000}
-    .videoWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#475569;font-weight:700}
-    .h4{font-size:20px;line-height:1.3;margin:6px 0 10px;font-weight:800}
-    .copy{color:#334155}
-    .btnRow{display:flex;gap:10px;flex-wrap:wrap}
-    .button{display:inline-block;border:1px solid var(--rule);padding:10px 14px;border-radius:12px;font-weight:700}
-    .button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+    /* Use Cases grid */
+    .usecases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .uc{background:#fff;border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px}
+    .uc h4{margin:0;font-size:18px;letter-spacing:.2px}
+    .uc p{margin:0;color:#434a57}
+    .uc .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .button{display:inline-block;border:1px solid var(--rule);padding:10px 14px;border-radius:12px;font-weight:800}
+    .button.primary{background:var(--brand-blue);color:#fff;border-color:var(--brand-blue)}
+    .button.primary:hover{background:var(--brand-blue-700)}
+    .button.alert{background:var(--accent-red);color:#fff;border-color:var(--accent-red)}
+    .label{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:800;font-size:12px}
+    .label.blue{background:var(--brand-blue-100);color:var(--brand-blue-700)}
+    .label.red{background:var(--accent-red-100);color:var(--accent-red)}
+
     /* Footer */
-    footer{
-      margin-top:36px;padding:28px 0;border-top:1px solid var(--rule);color:#475569
-    }
+    footer{margin-top:36px;padding:28px 0;border-top:1px solid var(--rule);color:#475569}
     .contact{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .contact h5{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#6b7280}
     .legal{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--rule);margin-top:18px;padding-top:12px;font-size:13px}
+
+    /* Responsive */
+    @media (max-width: 1120px){ .usecases{grid-template-columns:1fr 1fr} }
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;gap:12px}
-      .grid{grid-template-columns:1fr}
+      .usecases{grid-template-columns:1fr}
       .contact{grid-template-columns:1fr 1fr}
     }
+
+    /* Remove any stray black placeholders on embeds */
+    .frame { background:#fff; }
   </style>
 </head>
 <body>
   <header class="site">
     <div class="container nav">
-      <div class="brand">Chrionml© <small>Predictive AI Engine</small></div>
+      <div class="brand">Chrionml© <small>AI</small></div><!-- updated tag -->
       <nav class="links">
         <a href="index.html">Overview</a>
-        <a href="dark-theme-map.html">Maps</a>
+        <a href="#use-cases">Use Cases</a>
         <a href="README.md">Docs</a>
-        <!-- NEW: Innovation Track link -->
         <a href="https://www.omobilesolutions.com/ai-ml-innovation-track">AI/ML Innovation Track</a>
         <a class="cta" href="https://www.omobilesolutions.com/unlock-ai-solutions">Request Strategy Session</a>
       </nav>
@@ -110,92 +112,109 @@
   </header>
 
   <main class="container">
-    <!-- Hero -->
+    <!-- Hero — Stanford AI Labs tone -->
     <section class="hero">
       <div>
-        <div class="kicker">Applied AI Engineering</div>
-        <h1>Actionable market signals—<br>before the market moves.</h1>
+        <div class="kicker">Research-to-Production AI</div>
+        <h1>Practical AI systems. Measurable outcomes.</h1>
         <p>
-          MIT-trained data scientist <strong>Olu Daramola</strong> brings bank-grade modeling to real estate and enterprise forecasting.
-          Chrionml© blends supervised learning, time-series analysis, and domain signals to deliver predictive intelligence you can act on.
+          Stanford AI Lab–inspired rigor, shipped to production. This portfolio highlights
+          <strong>RAG LLMOps</strong> for travel search and <strong>GCP-native BigQuery data marts</strong>
+          for analytics—built with tight engineering loops, objective evals, and clear paths to value.
         </p>
         <div class="pillrow">
-          <span class="pill">R² up to 0.97</span>
-          <span class="pill">ROI scenarios</span>
-          <span class="pill">City-level forecasts</span>
-          <span class="pill">Interactive dashboards</span>
+          <span class="pill">RAG · LLMOps</span>
+          <span class="pill">Retrieval quality &amp; evals</span>
+          <span class="pill">GCP-Native · BigQuery</span>
+          <span class="pill">Governed ingestion</span>
         </div>
-        <div class="btnRow">
-          <a class="button primary" href="#map">Open Interactive Map</a>
-          <a class="button" href="https://www.linkedin.com/pulse/how-chrionml-predictive-ai-delivers-161819-growth-12-daramola-mba-72bac/">Read the breakdown</a>
+        <div class="pillrow">
+          <a class="button primary" href="#use-cases">Explore use cases</a>
+          <a class="button" href="https://daramoladoes.github.io/">GitHub Pages</a>
         </div>
       </div>
       <aside class="heroCard">
         <div class="stats">
-          <div class="stat">
-            <strong>82%</strong><span>Cambridge accuracy (R²)</span>
-          </div>
-          <div class="stat">
-            <strong>0.977</strong><span>Seattle OLS R²</span>
-          </div>
-          <div class="stat">
-            <strong>55.62%</strong><span>ROI over 68 months*</span>
-          </div>
+          <div class="stat"><strong>LLMOps</strong><span>Eval, guardrails, telemetry</span></div>
+          <div class="stat"><strong>BigQuery</strong><span>Bronze→Gold modeling</span></div>
+          <div class="stat"><strong>ETL</strong><span>Batch + Incremental</span></div>
         </div>
-        <p style="margin:12px 2px 0;color:#64748b;font-size:12px">*Illustrative model scenario. Not investment advice.</p>
+        <p style="margin:12px 2px 0;color:#64748b;font-size:12px">Prototypes shown here are educational demos; integrate with enterprise data under your governance.</p>
       </aside>
     </section>
 
-    <!-- Map -->
-    <section id="map" class="block">
-      <div class="card">
-        <div class="head">
-          <h3>Chrionml© AI Real Estate Map</h3>
-          <a class="button" href="dark-theme-map.html">Open in full page</a>
+    <!-- USE CASES -->
+    <section id="use-cases" class="block">
+      <div class="card" style="padding:18px">
+        <div class="head" style="border:none;padding:0 0 12px">
+          <div>
+            <div class="kicker" style="color:#475569;letter-spacing:.08em">Portfolio</div>
+            <h3 style="margin-top:4px">Use Cases</h3>
+          </div>
+          <div class="pillrow" style="margin:0">
+            <a class="button primary" href="https://github.com/DaramolaDoes/daramoladoes.github.io">Open Repository</a>
+          </div>
         </div>
-        <iframe class="frame" src="/chrionml-83125-outlook-map.html" title="Chrionml AI Real Estate Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+        <div class="usecases">
+          <!-- TripAdvisor RAG LLMOps — 3min demo -->
+          <article class="uc">
+            <div class="badges">
+              <span class="label blue">RAG · LLMOps</span>
+              <span class="label red">TripAdvisor</span>
+            </div>
+            <h4>TripAdvisor RAG LLMOps (3-minute demo)</h4>
+            <p>Retriever-augmented generation for travel planning: ingestion → vector index → semantic search + re-rank → grounded answers with citations and guardrails.</p>
+            <div class="pillrow">
+              <a class="button primary" href="https://www.youtube.com/watch?v=WMnjLXNHDr4" target="_blank" rel="noopener">Watch 3-min Demo</a>
+              <a class="button" href="use-cases/tripadvisor-rag.html">Architecture</a>
+            </div>
+          </article>
+
+          <!-- TripAdvisor RAG LLMOps — 17s demo -->
+          <article class="uc">
+            <div class="badges">
+              <span class="label blue">RAG · LLMOps</span>
+              <span class="label red">TripAdvisor</span>
+            </div>
+            <h4>TripAdvisor RAG LLMOps (17-second demo)</h4>
+            <p>Ultra-short walkthrough showing retrieval, re-ranking, and answer generation loop with telemetry for rapid iteration.</p>
+            <div class="pillrow">
+              <a class="button primary" href="https://www.youtube.com/watch?v=KJELPowxJq4" target="_blank" rel="noopener">Watch 17-sec Demo</a>
+              <a class="button" href="use-cases/tripadvisor-rag.html#tech">Tech details</a>
+            </div>
+          </article>
+
+          <!-- CME Group BigQuery Data Mart -->
+          <article class="uc">
+            <div class="badges">
+              <span class="label blue">GCP-Native</span>
+              <span class="label blue">BigQuery</span>
+            </div>
+            <h4>GCP-Native BigQuery Data Mart — CME Group (Public Data)</h4>
+            <p>Governed ingestion, Bronze→Silver→Gold modeling, Python ETL (batch + incremental), validation contracts, schema evolution, Composer orchestration, Terraform IaC.</p>
+            <div class="pillrow">
+              <a class="button primary" href="cme-bigquery-datamart.html">Open Use Case</a>
+              <a class="button" href="cme-bigquery-datamart.html#architecture">See architecture</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-   <!-- Editorial / Videos -->
-<section class="block grid">
-  <!-- Case study: Waltham -->
-  <article class="card">
-    <div class="head"><span class="eyebrow">Case study</span></div>
-    <div class="videoWrap">
-      <iframe src="https://www.youtube.com/embed/W14Qf3ap4vo"
-              title="Waltham — Model Accuracy Demo"
-              allowfullscreen loading="lazy"></iframe>
-    </div>
-    <div style="padding:16px 18px">
-      <div class="h4">Waltham: 94% accuracy · 21% ROI in 36 months</div>
-      <p class="copy">Near-term predictability with supervised regression and temporal feature engineering.</p>
-      <div class="btnRow">
-        <a class="button" href="https://www.linkedin.com/pulse/how-chrionml-predictive-ai-delivers-161819-growth-12-daramola-mba-72bac/">Newsletter</a>
-        <a class="button" href="https://www.youtube.com/@airealtyinsider/videos">More videos</a>
-      </div>
-    </div>
-  </article>
+    <!-- (REMOVED) case study & scenario analysis cards per request -->
 
-  <!-- Scenario analysis: Seattle -->
-  <article class="card">
-    <div class="head"><span class="eyebrow">Scenario analysis</span></div>
-    <div class="videoWrap">
-      <iframe src="https://www.youtube.com/embed/oqrvQMVlA_M"
-              title="Seattle — ROI Scenario"
-              allowfullscreen loading="lazy"></iframe>
-    </div>
-    <div style="padding:16px 18px">
-      <div class="h4">Seattle: 97% accuracy · 34% ROI in 36 months</div>
-      <p class="copy">Capital-planning examples for asset allocators using Chrionml© forecast deltas.</p>
-      <div class="btnRow">
-        <a class="button" href="https://www.linkedin.com/pulse/ai-real-estate-cambridge-city-01e64-extended-82-3-use-olu-daramola-wqybc/?trackingId=0Hzih2R%2BQkKu46fPwvgtYQ%3D%3D">Cambridge write-up</a>
-        <a class="button primary" href="https://www.omobilesolutions.com/unlock-ai-solutions">Request strategy session</a>
+    <!-- Chrionml© AI Map — moved to bottom -->
+    <section id="map" class="block">
+      <div class="card">
+        <div class="head">
+          <h3>Chrionml© AI — Interactive Map</h3>
+          <a class="button" href="dark-theme-map.html">Open in full page</a>
+        </div>
+        <iframe class="frame" src="/chrionml-83125-outlook-map.html" title="Chrionml© AI Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
-    </div>
-  </article>
-</section>
-
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -230,5 +249,3 @@
   </footer>
 </body>
 </html>
-
-
