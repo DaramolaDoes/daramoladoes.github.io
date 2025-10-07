@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Olu Use Case — GCP-Native BigQuery Data Mart | CME Group (Public Data)</title>
+  <meta name="description" content="Portfolio wiki: GCP-native BigQuery data mart using public CMEGroup.com pages. Governed ingestion, Python ETL (batch + incremental), validation, schema evolution, Composer orchestration, Terraform IaC." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#0f172a; --ink:#e5e7eb; --muted:#94a3b8; --rule:#1e293b;
+      --accent:#60a5fa; --accent-2:#38bdf8; --good:#22c55e; --warn:#f59e0b;
+      --code:#0b1324; --chip:#111827; --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+         background:linear-gradient(180deg,#0a0f1e,#0b1220);color:var(--ink);line-height:1.6}
+    .wrap{max-width:var(--max);margin:0 auto;padding:32px 18px 80px}
+    header.hero{
+      background:
+        radial-gradient(1000px 520px at 20% -10%, rgba(56,189,248,.25), transparent),
+        radial-gradient(1000px 520px at 80% -10%, rgba(96,165,250,.22), transparent);
+      border-bottom:1px solid var(--rule); padding:46px 0 28px; margin-bottom:22px;
+    }
+    .brand{font-weight:800;letter-spacing:.3px;color:var(--ink);font-size:13px;text-transform:uppercase;opacity:.75}
+    h1{font-size:34px;margin:10px 0 8px;line-height:1.15}
+    .subtitle{color:var(--muted);max-width:900px}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .chip{background:var(--chip);border:1px solid var(--rule);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
+    nav.toc{background:rgba(255,255,255,.02);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;margin:20px 0 26px}
+    nav.toc h3{margin:0 0 8px;font-size:14px;color:var(--muted);letter-spacing:.2px}
+    nav.toc a{display:block;color:var(--accent);text-decoration:none;padding:4px 0;font-size:14px}
+    nav.toc a:hover{text-decoration:underline}
+    section{border-top:1px solid var(--rule);padding-top:26px;margin-top:26px}
+    h2{font-size:22px;margin:0 0 6px}
+    p, li{color:#d1d5db}
+    code, pre{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    pre{background:var(--code);color:#cbd5e1;padding:14px 16px;border-radius:12px;border:1px solid #111827;overflow:auto}
+    .grid{display:grid;gap:18px}
+    @media(min-width:900px){ .cols-2{grid-template-columns:1fr 1fr} }
+    .card{background:rgba(255,255,255,.02);border:1px solid var(--rule);border-radius:16px;padding:16px}
+    .kbd{border:1px solid var(--rule);background:rgba(255,255,255,.05);padding:2px 6px;border-radius:6px}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+    .legend span{padding:3px 8px;border-radius:8px;border:1px solid var(--rule);background:#0c162a;color:#93c5fd;font-size:12px}
+    .diagram{background:#0a1324;border:1px solid #0b1b36;border-radius:16px;padding:12px}
+    .caption{color:var(--muted);font-size:12px;margin-top:6px}
+    footer{border-top:1px solid var(--rule);margin-top:38px;padding-top:16px;color:var(--muted);font-size:13px}
+    a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="brand">Olu Use Case · MIT-Labs tone</div>
+      <h1>GCP-Native BigQuery Data Mart — CME Group (Public Data)</h1>
+      <p class="subtitle">
+        Conceptual portfolio wiki using public <a href="https://www.cmegroup.com/" target="_blank" rel="noopener">CMEGroup.com</a> pages:
+        governed ingestion, layered BigQuery (Bronze→Silver→Gold), Python ETL (batch + incremental), validation contracts, schema evolution,
+        Composer orchestration, and Terraform IaC.
+      </p>
+      <div class="meta">
+        <span class="chip">Tech: BigQuery • Cloud Storage • Pub/Sub • Dataflow • Cloud Composer • Python • Terraform</span>
+        <span class="chip">Tags: GCP-Native, BigQuery</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="toc">
+      <h3>Contents</h3>
+      <a href="#scope">1. Scope & Assumptions</a>
+      <a href="#governance">2. Governance & Compliance</a>
+      <a href="#architecture">3. Target Architecture</a>
+      <a href="#datamodel">4. Data Model (Bronze → Silver → Gold)</a>
+      <a href="#ingestion">5. Ingestion & ETL Framework</a>
+      <a href="#validation">6. Data Validation & Contracts</a>
+      <a href="#schema">7. Schema Evolution</a>
+      <a href="#orchestration">8. Orchestration</a>
+      <a href="#iac">9. Terraform IaC</a>
+      <a href="#cost">10. Cost & Observability</a>
+      <a href="#portfolio">11. Portfolio Links</a>
+    </nav>
+
+    <section id="scope">
+      <h2>1) Scope & Assumptions</h2>
+      <div class="card">
+        <ul>
+          <li><b>Domain:</b> Public, non-authenticated CMEGroup.com pages (e.g., product specs, calendar summaries, education). <span class="kbd">No login</span> · <span class="kbd">No paywall</span></li>
+          <li><b>Purpose:</b> Educational portfolio architecture; not for redistributing licensed market data.</li>
+          <li><b>Acquisition:</b> Respect <code>robots.txt</code> and Terms of Use; throttle requests; cache raw HTML.</li>
+          <li><b>PII:</b> None ingested; low-risk posture.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="governance">
+      <h2>2) Governance & Compliance</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Data Contracts</h3>
+          <ul>
+            <li>Source allowlist, crawl cadence, user-agent, throttling.</li>
+            <li>Dataset contracts: schema, freshness SLA, retention, lineage.</li>
+            <li>Quality bars: null thresholds, code regex, timestamp sanity.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Access & Security</h3>
+          <ul>
+            <li>Least-privilege IAM; RW separation by dataset.</li>
+            <li>Service accounts per stage; CMEK optional; VPC-SC optional.</li>
+            <li>Labels: <code>layer</code>, <code>owner</code>, <code>domain</code> for governance & cost.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <h2>3) Target Architecture</h2>
+      <div class="legend">
+        <span>Ingestion</span><span>Staging (Bronze)</span><span>Transform (Silver)</span><span>Mart (Gold)</span><span>Orchestration</span>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 1080 340" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="End-to-end CME BigQuery architecture">
+          <rect x="10" y="10" width="1060" height="320" rx="16" fill="#0b1b36" stroke="#12284a"/>
+          <rect x="40" y="70" width="160" height="80" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="120" y="115" fill="#9cc4ff" text-anchor="middle" font-size="14">CMEGroup.com Public Pages</text>
+          <rect x="250" y="60" width="180" height="100" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="340" y="90" fill="#9cc4ff" text-anchor="middle" font-size="14">Cloud Storage</text>
+          <text x="340" y="110" fill="#9cc4ff" text-anchor="middle" font-size="12">raw_html/ • extracted_json/</text>
+          <rect x="250" y="190" width="180" height="60" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="340" y="225" fill="#9cc4ff" text-anchor="middle" font-size="13">Pub/Sub (events)</text>
+          <rect x="470" y="60" width="180" height="100" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="560" y="90" fill="#9cc4ff" text-anchor="middle" font-size="14">Dataflow / Beam</text>
+          <text x="560" y="110" fill="#9cc4ff" text-anchor="middle" font-size="12">Parse • Normalize</text>
+          <rect x="690" y="40" width="170" height="70" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="775" y="70" fill="#9cc4ff" text-anchor="middle" font-size="13">BigQuery (Bronze)</text>
+          <rect x="690" y="125" width="170" height="70" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="775" y="155" fill="#9cc4ff" text-anchor="middle" font-size="13">BigQuery (Silver)</text>
+          <rect x="690" y="210" width="170" height="70" rx="10" fill="#0e2a4d" stroke="#1e3a5f"/>
+          <text x="775" y="240" fill="#9cc4ff" text-anchor="middle" font-size="13">BigQuery (Gold)</text>
+          <rect x="900" y="120" width="160" height="80" rx="10" fill="#192a46" stroke="#274064"/>
+          <text x="980" y="160" fill="#a7c7ff" text-anchor="middle" font-size="13">Cloud Composer</text>
+          <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#9cc4ff"/></marker></defs>
+          <line x1="200" y1="110" x2="250" y2="110" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="430" y1="110" x2="470" y2="110" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="650" y1="100" x2="690" y2="75" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="650" y1="120" x2="690" y2="160" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="650" y1="140" x2="690" y2="245" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="860" y1="75"  x2="900" y2="160" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="860" y1="160" x2="900" y2="160" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="860" y1="245" x2="900" y2="160" stroke="#9cc4ff" stroke-width="2" marker-end="url(#arrow)"/>
+        </svg>
+        <div class="caption">Figure 1. End-to-end architecture with governed ingestion, eventing, and layered BigQuery design.</div>
+      </div>
+    </section>
+
+    <section id="datamodel">
+      <h2>4) Data Model (Bronze → Silver → Gold)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Bronze (Staging)</h3>
+          <ul>
+            <li>Raw extracts as normalized JSON with lineage: <code>source_url</code>, <code>crawl_ts</code>, <code>hash_key</code>.</li>
+            <li>Partition by <code>crawl_date</code>; cluster by <code>instrument_code</code>, <code>content_type</code>.</li>
+            <li>Raw HTML persisted in GCS with checksums.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Silver (Conformed)</h3>
+          <ul>
+            <li>Entity tables: <code>products</code>, <code>contract_specs</code>, <code>calendar_events</code>, <code>education_articles</code>.</li>
+            <li>Type enforcement; dedupe via <code>hash_key</code>; business keys <code>instrument_code</code> + <code>as_of_date</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Gold (Marts)</h3>
+          <ul>
+            <li>Analytics-ready facts/views: coverage, attribute snapshots, event counts, freshness indicators.</li>
+            <li>Materialized views for hot paths; optional row-level security.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Example DDL</h3>
+<pre>-- bronze.cme_pages
+CREATE TABLE IF NOT EXISTS `proj.ds_bronze.cme_pages`
+PARTITION BY DATE(crawl_ts)
+CLUSTER BY instrument_code, content_type AS
+SELECT
+  NULL AS instrument_code,
+  NULL AS content_type,
+  NULL AS source_url,
+  NULL AS crawl_ts,
+  NULL AS hash_key,
+  NULL AS payload_json;</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="ingestion">
+      <h2>5) Ingestion & ETL Framework (Batch + Incremental)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Python Extractors (Batch)</h3>
+<pre>HEADERS = {"User-Agent": "ResearchBot/1.0 (+contact@example.com)"}
+def extract_payload(html) -> dict:
+    # Parse & normalize metadata: instrument_code, title, attributes...
+    return {"content_type":"contract_specs","instrument_code":None,"attributes":{}}
+
+def make_record(url, html):
+    h = sha256((url + html)[:1_000_000].encode()).hexdigest()
+    return {"source_url": url, "crawl_ts": CURRENT_TIMESTAMP(), "hash_key": h,
+            "payload_json": extract_payload(html)}</pre>
+        </div>
+        <div class="card">
+          <h3>Incremental Merge (BigQuery)</h3>
+<pre>MERGE `proj.ds_silver.contract_specs` T
+USING `proj.ds_bronze.cme_pages` S
+ON T.hash_key = S.hash_key
+WHEN NOT MATCHED AND S.content_type = 'contract_specs' THEN
+  INSERT (instrument_code, as_of_ts, tick_size, contract_unit, hash_key)
+  VALUES (JSON_VALUE(S.payload_json, '$.instrument_code'), S.crawl_ts,
+          JSON_VALUE(S.payload_json, '$.attributes.tick_size'),
+          JSON_VALUE(S.payload_json, '$.attributes.contract_unit'), S.hash_key);</pre>
+          <p class="caption">Changed content can be handled via SCD-2 in Silver or snapshot logic in Gold.</p>
+        </div>
+        <div class="card">
+          <h3>Validation Hooks</h3>
+<pre>def validate(record):
+    errs = []
+    if not record.get("source_url"): errs.append("missing source_url")
+    if not record.get("hash_key"):   errs.append("missing hash_key")
+    return errs</pre>
+        </div>
+        <div class="card">
+          <h3>Storage Layout</h3>
+<pre>gs://&lt;bucket&gt;/cme/raw_html/{date}/&lt;instrument|misc&gt;/&lt;hash&gt;.html
+gs://&lt;bucket&gt;/cme/extracted_json/{date}/&lt;instrument|misc&gt;/&lt;hash&gt;.json</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="validation">
+      <h2>6) Data Validation & Contracts</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Expectation Suite</h3>
+<pre>expect_table_row_count_to_be_between(min_value=1)
+expect_column_values_to_not_be_null(columns=["source_url","hash_key","crawl_ts"])
+expect_column_values_to_match_regex(column="instrument_code", regex="^[A-Z0-9-_]{1,20}$")</pre>
+        </div>
+        <div class="card">
+          <h3>Lineage & Provenance</h3>
+          <ul>
+            <li><code>_LINEAGE</code> meta tables: source_url, crawl_ts, code_version, container digest.</li>
+            <li>Data Catalog + policy tags (optional).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="schema">
+      <h2>7) Schema Evolution & Versioning</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Pattern</h3>
+          <ul>
+            <li>Bronze: JSON payload absorbs drift.</li>
+            <li>Silver: typed columns; additive changes via <code>ALTER TABLE ADD COLUMN</code>.</li>
+            <li>Breaking changes: versioned tables (<code>contract_specs_v2</code>).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>DDL Examples</h3>
+<pre>ALTER TABLE `proj.ds_silver.contract_specs`
+ADD COLUMN IF NOT EXISTS tick_value NUMERIC;
+
+CREATE OR REPLACE VIEW `proj.ds_gold.fact_products` AS
+SELECT
+  instrument_code,
+  DATE(as_of_ts) AS as_of_date,
+  ANY_VALUE(tick_size) AS tick_size,
+  ANY_VALUE(contract_unit) AS contract_unit
+FROM `proj.ds_silver.contract_specs`
+GROUP BY 1,2;</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="orchestration">
+      <h2>8) Orchestration (Cloud Composer / Airflow)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>DAG Sketch</h3>
+<pre>with DAG("cme_public_pipeline", schedule="@hourly", catchup=False) as dag:
+    start >> extract >> normalize >> load_bronze >> validate >> merge_silver >> build_gold >> end</pre>
+        </div>
+        <div class="card">
+          <h3>SLAs & Alerts</h3>
+          <ul>
+            <li>Freshness: ≤ 2h publish→mart.</li>
+            <li>Retries: exponential backoff; idempotent tasks.</li>
+            <li>Notify: Slack on failure; on-call if SLA breached twice.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="iac">
+      <h2>9) Infrastructure as Code (Terraform)</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Core Resources</h3>
+<pre>resource "google_bigquery_dataset" "bronze" {
+  dataset_id = "ds_bronze"
+  location   = "US"
+  labels     = { layer = "bronze", owner = "olu", domain = "futures" }
+}
+
+resource "google_storage_bucket" "raw" {
+  name                              = "cme-public-raw"
+  location                          = "US"
+  uniform_bucket_level_access       = true
+}</pre>
+        </div>
+        <div class="card">
+          <h3>Composer</h3>
+<pre>resource "google_composer_environment" "main" {
+  name   = "composer-cme"
+  region = "us-central1"
+  config {
+    software_config { image_version = "composer-3-airflow-2" }
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="cost">
+      <h2>10) Cost & Observability</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Optimization</h3>
+          <ul>
+            <li>Partition + cluster Silver/Gold; cache where possible.</li>
+            <li>Delta-only processing; compact load files (~64MB).</li>
+            <li>Autoscale/slots for predictable cost.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Monitoring</h3>
+          <ul>
+            <li>Dashboards: freshness, row deltas, failure rate, cost/day.</li>
+            <li>Audit: validation failures, schema drift, DAG runtimes.</li>
+            <li>Correlation IDs: <code>hash_key</code>, <code>dag_run_id</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <h2>11) Portfolio Links</h2>
+      <div class="card">
+        <ul>
+          <li><b>GitHub Pages:</b> <a href="https://daramoladoes.github.io/" target="_blank" rel="noopener">daramoladoes.github.io</a></li>
+          <li><b>Repo:</b> <a href="https://github.com/DaramolaDoes/daramoladoes.github.io" target="_blank" rel="noopener">DaramolaDoes/daramoladoes.github.io</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p><b>Attribution & Use:</b> Conceptual architecture using public <a href="https://www.cmegroup.com/" target="_blank" rel="noopener">CMEGroup.com</a> pages. Review Terms of Use and <code>robots.txt</code>; do not store or redistribute proprietary market data. Educational demo only.</p>
+    </footer>
+  </main>
+</body>
+</html>
