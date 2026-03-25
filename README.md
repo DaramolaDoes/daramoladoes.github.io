@@ -37,50 +37,10 @@ Observed through runtime monitoring and system signals
 Consumed via stable interfaces by scientists and autonomous systems
 System Architecture
 
-The platform follows a simple, governed flow:
-
-Scientist / Agent
-        ↓
-     API Layer
-        ↓
-  Model Serving Layer
-        ↓
- Scientific Method Execution
-        ↓
-  Versioned Outputs (Artifacts)
-        ↓
-   Observability & Monitoring
-
-Key characteristics:
-
-Version-controlled execution
-Structured API contracts
-Reproducible outputs
-Traceable workflows
-Operational visibility
-
-This repository is designed as:
-
-A reference implementation for platform thinking
-A visual and architectural demonstration
-A starting point for building governed ML systems in scientific environments
-Next Steps
-
-Planned enhancements include:
-
-Integration of live model inference endpoints
-Real-time observability and logging pipelines
-Interactive architecture visualization
-Dataset upload and execution workflows
-Agent tool registry with structured interfaces
-Notes
 
 This is a conceptual and architectural proof of concept.
 It is not intended to represent production infrastructure, clinical systems, or validated scientific outcomes.
 
-License
-
-MIT License
 
 Author
 
