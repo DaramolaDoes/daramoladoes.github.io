@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chrionml© AI Labs — Scientific Platforms Big Board</title>
+  <meta name="description" content="A dark editorial, Ringer-inspired proof of concept for scientific platforms, model serving, API contracts, observability, and agent-ready workflows." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="page-shell header-inner">
+      <a class="brand-lockup" href="index.html">
+        <span class="brand-kicker">Chrionml© AI Labs</span>
+        <span class="brand-name">Scientific Platforms</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#board">Board</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#payloads">Payloads</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#observability">Observability</a>
+        <a href="https://github.com/DaramolaDoes/daramoladoes.github.io" target="_blank" rel="noopener">Repository</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="page-shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Editorial demo · scientific platforms · neutral language</p>
+          <h1>Scientific Methods, Operationalized.</h1>
+          <p class="hero-text">
+            This proof of concept adapts your GitHub Pages site into a ranked, editorial-style board that presents
+            deployable scientific platform capabilities: release pipelines, serving infrastructure, API contracts,
+            observability guardrails, scientist workflows, and agent-ready interfaces.
+          </p>
+          <div class="hero-pills" aria-label="Key capabilities">
+            <span>Deployment</span>
+            <span>Serving</span>
+            <span>API Contracts</span>
+            <span>Observability</span>
+            <span>Scientist UX</span>
+            <span>Autonomous Tools</span>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#board">Explore board</a>
+            <a class="button" href="https://github.com/DaramolaDoes/daramoladoes.github.io" target="_blank" rel="noopener">Open repo</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel marquee-panel">
+          <div class="panel-topline">
+            <span class="panel-label">Marquee capability</span>
+            <span class="panel-rank">01</span>
+          </div>
+          <h2>Prototype-to-Production Pipeline</h2>
+          <p>
+            Package scientific methods into reproducible services with automated validation, releasable artifacts,
+            and traceable promotion from development to governed runtime.
+          </p>
+          <ul class="mini-metrics">
+            <li><strong>States</strong><span>Draft · Validated · Production</span></li>
+            <li><strong>Artifacts</strong><span>Model card · Build log · Manifest</span></li>
+            <li><strong>Controls</strong><span>Checks · Version tags · Rollback</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sticky-modes-wrap">
+      <div class="page-shell sticky-modes">
+        <div>
+          <p class="modes-label">Browse modes</p>
+        </div>
+        <div class="mode-group" role="tablist" aria-label="Browse depth">
+          <button class="mode-btn is-active" data-mode="skim" aria-pressed="true">Skim</button>
+          <button class="mode-btn" data-mode="peek" aria-pressed="false">Peek</button>
+          <button class="mode-btn" data-mode="peruse" aria-pressed="false">Peruse</button>
+          <button class="mode-btn" data-mode="deep" aria-pressed="false">Deep Dive</button>
+          <button class="mode-btn" data-mode="all" aria-pressed="false">Show All</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="board" class="board-section page-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow-muted">Ranked platform board</p>
+          <h2>Six platform layers, presented as a visual big board.</h2>
+        </div>
+        <p class="section-note">Each card expands into neutral scientific language, sample artifacts, and operational signals.</p>
+      </div>
+      <div id="boardContainer" class="board-list"></div>
+    </section>
+
+    <section id="architecture" class="page-shell feature-grid">
+      <article class="feature-card architecture-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Marquee architecture</p>
+            <h2>Reference platform flow</h2>
+          </div>
+        </div>
+        <div class="diagram-shell">
+          <img src="assets/img/architecture-diagram.svg" alt="Scientific platform reference architecture diagram" />
+        </div>
+        <p class="supporting-copy">
+          The diagram shows a simple, governed path from scientist or autonomous tool to API layer, serving infrastructure,
+          scientific method execution, versioned outputs, and observability signals.
+        </p>
+      </article>
+
+      <article id="payloads" class="feature-card code-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Sample API payload</p>
+            <h2>Versioned request contract</h2>
+          </div>
+        </div>
+<pre><code>{
+  "request_id": "run-2026-03-24-001",
+  "method_version": "v1.2.0",
+  "dataset_ref": "scientific-dataset-alpha",
+  "parameters": {
+    "mode": "validated",
+    "threshold": 0.72,
+    "include_explanation": true
+  },
+  "output_contract": {
+    "format": "json",
+    "include_trace": true,
+    "include_artifacts": ["summary", "metadata", "explanation"]
+  }
+}</code></pre>
+      </article>
+    </section>
+
+    <section id="workflows" class="page-shell dual-grid">
+      <article class="feature-card workflow-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Scientist workflow</p>
+            <h2>Human-guided execution path</h2>
+          </div>
+        </div>
+        <ol class="workflow-list">
+          <li>Select a validated dataset or upload a structured input file.</li>
+          <li>Choose an approved scientific method and runtime mode.</li>
+          <li>Review method version, metadata, and expected outputs.</li>
+          <li>Run the analysis and inspect summary, explanation, and trace identifiers.</li>
+          <li>Export a reproducible artifact bundle for downstream review.</li>
+        </ol>
+      </article>
+
+      <article class="feature-card workflow-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Agent workflow</p>
+            <h2>Governed autonomous execution path</h2>
+          </div>
+        </div>
+        <ol class="workflow-list">
+          <li>Discover an approved tool manifest and verify permission scope.</li>
+          <li>Submit a schema-compliant request with traceable identifiers.</li>
+          <li>Receive a structured response with method version and confidence metadata.</li>
+          <li>Log execution details for replay, audit, and post-run analysis.</li>
+          <li>Escalate exceptions when validation or policy checks fail.</li>
+        </ol>
+      </article>
+    </section>
+
+    <section id="observability" class="page-shell observability-wrap">
+      <article class="feature-card observability-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Observability panel</p>
+            <h2>Operational view</h2>
+          </div>
+        </div>
+        <div class="obs-grid">
+          <div class="obs-stat"><span>p95 latency</span><strong>842 ms</strong></div>
+          <div class="obs-stat"><span>Success rate</span><strong>99.1%</strong></div>
+          <div class="obs-stat"><span>Input drift</span><strong>Low</strong></div>
+          <div class="obs-stat"><span>Current release</span><strong>v1.2.0</strong></div>
+        </div>
+        <div class="obs-bars" aria-hidden="true">
+          <span style="--h:68%"></span>
+          <span style="--h:82%"></span>
+          <span style="--h:54%"></span>
+          <span style="--h:88%"></span>
+          <span style="--h:74%"></span>
+          <span style="--h:61%"></span>
+          <span style="--h:79%"></span>
+          <span style="--h:92%"></span>
+          <span style="--h:66%"></span>
+          <span style="--h:72%"></span>
+        </div>
+        <p class="supporting-copy">Illustrative only: combine structured logs, latency tracking, drift checks, and release status in one operational surface.</p>
+      </article>
+    </section>
+
+    <section class="page-shell repo-note-wrap">
+      <article class="feature-card repo-note-card">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow eyebrow-muted">Repo link + architecture note</p>
+            <h2>How this fits your current GitHub Pages setup</h2>
+          </div>
+        </div>
+        <p>
+          This v1 is designed for your existing repo structure and can live alongside your current root pages such as
+          <code>cme-architecture.html</code>, <code>cme-bigquery-datamart.html</code>, <code>dark-theme-map.html</code>,
+          <code>chrionml-83125-outlook-map.html</code>, and <code>olu-demo.html</code>.
+        </p>
+        <p>
+          Recommended placement: either replace your root <code>index.html</code> with this board, or publish it as a new landing page
+          such as <code>scientific-platforms.html</code> and link to it from your current homepage.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/DaramolaDoes/daramoladoes.github.io" target="_blank" rel="noopener">Open current repo</a>
+          <a class="button" href="cme-architecture.html">Open existing architecture page</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <template id="boardCardTemplate">
+    <article class="board-card">
+      <div class="board-topline">
+        <div class="rank"></div>
+        <div class="board-main">
+          <p class="card-category"></p>
+          <h3></h3>
+          <p class="card-summary"></p>
+          <div class="tag-row"></div>
+          <p class="peek-row"></p>
+        </div>
+        <button class="expand-btn" type="button" aria-expanded="false">Expand</button>
+      </div>
+      <div class="board-expand" hidden>
+        <div class="detail-grid">
+          <div>
+            <h4>Problem</h4>
+            <p class="detail-problem"></p>
+          </div>
+          <div>
+            <h4>Solution</h4>
+            <p class="detail-solution"></p>
+          </div>
+          <div>
+            <h4>Artifacts</h4>
+            <ul class="artifact-list"></ul>
+          </div>
+          <div>
+            <h4>Operational signals</h4>
+            <ul class="signal-list"></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
