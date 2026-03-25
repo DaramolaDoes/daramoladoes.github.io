@@ -1,0 +1,92 @@
+[
+  {
+    "rank": 1,
+    "marquee": true,
+    "category": "Deployment",
+    "title": "Prototype-to-Production Pipeline",
+    "summary": "Package scientific methods into reproducible, validated, and releasable services.",
+    "peek": "Versioned methods, automated checks, release states, and repeatable packaging.",
+    "tags": ["CI/CD", "Validation", "Registry"],
+    "details": {
+      "problem": "Scientific methods often remain trapped in notebooks or one-off execution environments, which slows reuse and governance.",
+      "solution": "Use automated packaging, release validation, and version tagging so a method can move from development to production without losing traceability.",
+      "artifacts": ["model card", "build log", "release manifest", "validation report"],
+      "signals": ["reproducible builds", "versioned releases", "automated rollback path"]
+    }
+  },
+  {
+    "rank": 2,
+    "marquee": false,
+    "category": "Serving",
+    "title": "Model Serving Infrastructure",
+    "summary": "Expose scientific scoring and analytical methods through stable, versioned services.",
+    "peek": "Containerized inference, method routing, and environment-specific release controls.",
+    "tags": ["Containers", "Routing", "Versioning"],
+    "details": {
+      "problem": "A method that cannot be reliably served cannot become part of a durable scientific platform.",
+      "solution": "Use containerized services with version-aware routing, health checks, and controlled promotion between environments.",
+      "artifacts": ["service spec", "health endpoint", "deployment manifest", "version matrix"],
+      "signals": ["predictable latency", "stable uptime", "controlled promotion"]
+    }
+  },
+  {
+    "rank": 3,
+    "marquee": false,
+    "category": "APIs",
+    "title": "API Contract Layer",
+    "summary": "Define clear request and response contracts for scientists, applications, and autonomous tools.",
+    "peek": "Schemas, documentation, trace IDs, and backward-compatible integration patterns.",
+    "tags": ["REST", "Schemas", "Documentation"],
+    "details": {
+      "problem": "Without explicit contracts, integrations become brittle and difficult to govern.",
+      "solution": "Use versioned API contracts with schema validation, trace identifiers, and consistent response envelopes.",
+      "artifacts": ["OpenAPI spec", "sample payloads", "trace contract", "error catalogue"],
+      "signals": ["low integration friction", "clear failure handling", "reusable interfaces"]
+    }
+  },
+  {
+    "rank": 4,
+    "marquee": false,
+    "category": "Observability",
+    "title": "Observability Guardrails",
+    "summary": "Monitor service health, data integrity, drift, and release quality in one operational layer.",
+    "peek": "Structured logging, latency tracking, drift checks, and release health monitoring.",
+    "tags": ["Logging", "Tracing", "Drift"],
+    "details": {
+      "problem": "Operational visibility is required to trust scientific services in recurring workflows.",
+      "solution": "Collect structured telemetry across inputs, outputs, latency, drift, and release status to support safe operation and incident response.",
+      "artifacts": ["run logs", "drift report", "release dashboard", "alert rules"],
+      "signals": ["fast incident diagnosis", "stable data profile", "release confidence"]
+    }
+  },
+  {
+    "rank": 5,
+    "marquee": false,
+    "category": "Scientist Experience",
+    "title": "Scientist Workflow Surface",
+    "summary": "Provide a simple path from dataset selection to interpretable results and exportable artifacts.",
+    "peek": "Structured inputs, reproducibility metadata, and concise explanation surfaces.",
+    "tags": ["UX", "Reproducibility", "Exports"],
+    "details": {
+      "problem": "Scientific users need a direct workflow that does not require platform expertise to obtain reliable results.",
+      "solution": "Offer a lightweight interface that supports dataset selection, parameter control, result review, and artifact export.",
+      "artifacts": ["run summary", "export package", "result explanation", "metadata snapshot"],
+      "signals": ["shorter time to result", "higher reuse", "clear audit trail"]
+    }
+  },
+  {
+    "rank": 6,
+    "marquee": false,
+    "category": "Autonomous Tools",
+    "title": "Agent-Ready Consumption Layer",
+    "summary": "Allow autonomous systems to discover, call, and monitor scientific methods through governed interfaces.",
+    "peek": "Tool manifests, scoped permissions, response contracts, and execution logging.",
+    "tags": ["Agents", "Permissions", "Auditability"],
+    "details": {
+      "problem": "Autonomous systems need machine-readable interfaces and governance boundaries before they can use scientific methods safely.",
+      "solution": "Publish tool manifests, require contract compliance, scope permissions, and store execution traces for replay and audit.",
+      "artifacts": ["tool manifest", "permission policy", "execution log", "response schema"],
+      "signals": ["controlled autonomy", "replayable runs", "contract-safe use"]
+    }
+  }
+]

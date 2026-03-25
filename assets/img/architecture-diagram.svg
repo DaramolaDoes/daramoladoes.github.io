@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="none">
+  <rect width="1400" height="760" rx="28" fill="#10141A"/>
+  <rect x="40" y="40" width="1320" height="680" rx="24" stroke="rgba(255,255,255,0.12)"/>
+  <text x="70" y="95" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="20" letter-spacing="3">REFERENCE ARCHITECTURE</text>
+  <text x="70" y="138" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700">Scientific methods as governed platform services</text>
+
+  <rect x="78" y="200" width="240" height="120" rx="20" fill="#171C23" stroke="#3A3F47"/>
+  <text x="108" y="244" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">CLIENTS</text>
+  <text x="108" y="284" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Scientists</text>
+  <text x="108" y="316" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Notebook, UI, review workflows</text>
+
+  <rect x="78" y="388" width="240" height="120" rx="20" fill="#171C23" stroke="#3A3F47"/>
+  <text x="108" y="432" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">CLIENTS</text>
+  <text x="108" y="472" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Agents</text>
+  <text x="108" y="504" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Tool manifests, governed calls</text>
+
+  <rect x="404" y="234" width="240" height="240" rx="24" fill="#1A2028" stroke="#C7A35C"/>
+  <text x="438" y="280" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">ACCESS LAYER</text>
+  <text x="438" y="324" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">API Layer</text>
+  <text x="438" y="362" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Schema validation</text>
+  <text x="438" y="392" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Trace identifiers</text>
+  <text x="438" y="422" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Versioned contracts</text>
+
+  <rect x="730" y="180" width="278" height="136" rx="22" fill="#171C23" stroke="#3A3F47"/>
+  <text x="762" y="226" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">SERVING</text>
+  <text x="762" y="268" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Model Services</text>
+  <text x="762" y="302" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Containerized scoring</text>
+
+  <rect x="730" y="340" width="278" height="136" rx="22" fill="#171C23" stroke="#3A3F47"/>
+  <text x="762" y="386" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">DATA</text>
+  <text x="762" y="428" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Versioned Inputs</text>
+  <text x="762" y="462" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Training and inference products</text>
+
+  <rect x="730" y="500" width="278" height="136" rx="22" fill="#171C23" stroke="#3A3F47"/>
+  <text x="762" y="546" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">METHODS</text>
+  <text x="762" y="588" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Registry</text>
+  <text x="762" y="622" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Versions, metadata, release states</text>
+
+  <rect x="1090" y="234" width="220" height="188" rx="24" fill="#1A2028" stroke="#C7A35C"/>
+  <text x="1124" y="280" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">OBSERVABILITY</text>
+  <text x="1124" y="322" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Guardrails</text>
+  <text x="1124" y="358" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Latency</text>
+  <text x="1124" y="386" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Drift</text>
+  <text x="1124" y="414" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Release health</text>
+
+  <rect x="1090" y="458" width="220" height="144" rx="24" fill="#171C23" stroke="#3A3F47"/>
+  <text x="1124" y="504" fill="#C7A35C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="2">CONTROLS</text>
+  <text x="1124" y="546" fill="#F2EFE7" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700">Release Gate</text>
+  <text x="1124" y="580" fill="#A9B0BB" font-family="Inter, Arial, sans-serif" font-size="18">Validation, canary, rollback</text>
+
+  <path d="M318 260H404" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M318 448H404" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M644 354H730" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1008 248H1090" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1008 408H1090" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1008 568H1090" stroke="#C7A35C" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="404" cy="260" r="8" fill="#C7A35C"/>
+  <circle cx="404" cy="448" r="8" fill="#C7A35C"/>
+  <circle cx="730" cy="354" r="8" fill="#C7A35C"/>
+</svg>
