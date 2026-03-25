@@ -1,4 +1,4 @@
-🧬 Scientific Platforms Big Board
+Scientific Platforms Big Board
 
 A Proof of Concept for Operationalizing Scientific Methods with Machine Learning Platforms
 
@@ -58,73 +58,6 @@ Structured API contracts
 Reproducible outputs
 Traceable workflows
 Operational visibility
-Platform Roadmap
-
-This system reflects a five-stage progression from experimental method to scalable platform:
-
-Prototype Development
-Initial scientific method development in exploratory environments
-Validation & Standardization
-Formalizing inputs, outputs, and reproducibility requirements
-Deployment & Serving
-Packaging methods as versioned services with stable APIs
-Observability & Reliability
-Monitoring performance, drift, and system health
-Scaled Consumption
-Enabling use across scientists, applications, and autonomous agents
-Repository Structure
-.
-├── index.html                  # Main platform interface (GitHub Pages)
-├── assets/
-│   ├── css/
-│   │   └── site.css           # Styling (dark editorial UI)
-│   ├── js/
-│   │   └── site.js            # Interactions (board, expand, modes)
-│   ├── data/
-│   │   └── board.json         # Platform modules (data-driven content)
-│   └── img/
-│       └── architecture-diagram.svg
-Key Components
-1. Platform Board (UI)
-
-A ranked, interactive interface representing core platform layers:
-
-Deployment pipelines
-Model serving
-API contracts
-Observability
-Scientist workflows
-Agent integration
-2. API Contract (Example)
-
-Demonstrates structured, versioned interaction with scientific methods:
-
-{
-  "request_id": "run-2026-03-24-001",
-  "method_version": "v1.2.0",
-  "dataset_ref": "scientific-dataset-alpha"
-}
-3. Scientist Workflow
-Select dataset
-Choose validated method
-Execute workflow
-Review outputs and metadata
-Export reproducible artifacts
-4. Agent Workflow
-Discover tool interface
-Validate permissions
-Execute API call
-Process structured response
-Log execution for traceability
-5. Observability
-
-Illustrative metrics include:
-
-Latency
-Success rate
-Input drift
-Active model version
-Intended Use
 
 This repository is designed as:
 
